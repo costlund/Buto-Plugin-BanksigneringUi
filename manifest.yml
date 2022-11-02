@@ -1,0 +1,31 @@
+version: 1.0.0
+history:
+  1.0.0:
+    date: '2022-10-28'
+    title: 'First version'
+    description: 'First version. Manifest created.'
+plugin:
+  -
+    name: wf/mysql
+    version: 1.14.9
+  -
+    name: banksignering/api
+    version: 1.0.0
+  -
+    name: wf/account2
+    version: 1.23.3
+  -
+    name: wf/embed
+    version: 1.1.1
+sys:
+  -
+    name: mercury
+    version:
+      - 2.66.0
+php:
+  version:
+    - 8.0.8
+author: null
+links: null
+description: ''
+third_part_software: null

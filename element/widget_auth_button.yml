@@ -1,0 +1,20 @@
+-
+  type: a
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+  attribute:
+    class: btn btn-primary
+    onclick: "PluginBanksigneringUi.auth(this);"
+  innerHTML: 
+    -
+      type: span
+      innerHTML: 'Sign in'
+    -
+      type: img
+      attribute: 
+        src: /plugin/banksignering/ui/logo.svg
+        style:
+          width: 24px

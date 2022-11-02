@@ -1,0 +1,95 @@
+-
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+    role:
+      item: 
+        - unknown
+  innerHTML: 
+    -
+      type: div
+      settings:
+        enabled: rs:continue
+      attribute: 
+        class: alert alert-success text-center
+      innerHTML: 
+        -
+          type: img
+          attribute: 
+            src: rs:src
+    -
+      type: div
+      settings:
+        disabled: rs:continue
+      innerHTML:
+        -
+          type: div
+          settings:
+            enabled: rs:success
+          attribute: 
+            class: alert alert-success text-center
+          innerHTML: Success
+        -
+          type: script
+          settings:
+            enabled: rs:success
+          innerHTML: "PluginBanksigneringUi.success('auth')"
+        -
+          type: div
+          attribute: 
+            class: alert alert-warning text-center
+          settings:
+            disabled: rs:success
+          innerHTML:
+            -
+              type: p
+              innerHTML: Failed to authenticate.
+            -
+              type: p
+              innerHTML:
+                - 
+                  type: strong
+                  attribute:
+                    class: content-colon
+                  innerHTML: Hint
+                - 
+                  type: span
+                  innerHTML: response:collectstatus/apiCallResponse/Response/HintCode
+            -
+              type: p
+              innerHTML: 
+                -
+                  type: a
+                  attribute: 
+                    class: btn btn-primary
+                    onclick: PluginWfAjax.update('div_banksignering')
+                  innerHTML: Try again
+    -
+      type: div
+      innerHTML:
+        - 
+          type: strong
+          attribute:
+            class: content-colon
+          innerHTML: Seconds
+        - 
+          type: span
+          innerHTML: rs:time_count
+    -
+      type: script
+      settings:
+        enabled: rs:continue
+      innerHTML: |
+        setTimeout(function() { 
+            PluginWfAjax.update('div_banksignering');
+        }, 5000);
+-
+  type: div
+  settings:
+    role:
+      item: 
+        - client
+  innerHTML: You are already signed in!

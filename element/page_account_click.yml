@@ -1,0 +1,8 @@
+-
+  type: div
+  attribute: 
+    class: alert alert-success
+  innerHTML: Sign in success!
+-
+  type: script
+  innerHTML: $('#modal_banksignering_account').modal('hide'); location.reload();

@@ -1,0 +1,17 @@
+account_select_by_pid:
+  sql: |
+    select
+    id,
+    username,
+    pid
+    from account
+    where pid=?
+    order by username
+  params:
+    -
+      type: s
+      value: rs:pid
+  select:
+    - id
+    - username
+    - pid

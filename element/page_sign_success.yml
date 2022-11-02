@@ -1,0 +1,31 @@
+-
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+  attribute: 
+    class: alert alert-success
+  innerHTML:
+    -
+      type: p
+      innerHTML: Signing was sucessfully!
+    -
+      type: p
+      attribute:
+        class: text-center
+      innerHTML:
+        -
+          type: a
+          attribute: 
+            class: btn btn-secondary
+            data-dismiss: modal
+            id: banksignering_button_close
+          innerHTML: Close
+-
+  type: script
+  innerHTML: success:script
+-
+  type: script
+  innerHTML: document.getElementById('banksignering_button_close').click()

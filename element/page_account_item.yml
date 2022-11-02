@@ -1,0 +1,6 @@
+type: a
+attribute: 
+  class: list-group-item
+  data-id: rs:id
+  onclick: PluginBanksigneringUi.account_click(this)
+innerHTML: rs:username

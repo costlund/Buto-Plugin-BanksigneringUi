@@ -1,0 +1,29 @@
+-
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+  innerHTML: 
+    -
+      type: p
+      settings:
+        enabled: rs:items
+      attribute: 
+        class: text-center
+      innerHTML: Select an account.
+    -
+      type: div
+      settings:
+        enabled: rs:items
+      attribute: 
+        class: list-group
+      innerHTML: rs:items
+    -
+      type: div
+      settings:
+        disabled: rs:items
+      attribute: 
+        class: alert alert-warning
+      innerHTML: Could not find any account using this BankID.
