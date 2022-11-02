@@ -19,7 +19,19 @@
         enabled: rs:items
       attribute: 
         class: list-group
+        id: banksignering_account_items
       innerHTML: rs:items
+
+    -
+      type: div
+      settings:
+        enabled: rs:items
+      innerHTML: 
+        -
+          type: script
+          settings:
+            disabled: globals:_SESSION/plugin/banksignering/ui/account/count
+          innerHTML: PluginBanksigneringUi.account_click_if_one()
     -
       type: div
       settings:

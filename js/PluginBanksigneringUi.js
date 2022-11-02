@@ -23,5 +23,11 @@ function PluginBanksigneringUi(){
   this.account_click = function(btn){
     PluginWfAjax.load('modal_banksignering_account_body', '/banksignering/account_click?id='+btn.getAttribute('data-id'));
   }
+  this.account_click_if_one = function(btn){
+    var items = document.getElementById('banksignering_account_items').getElementsByTagName('a');
+    if(items.length==1){
+      items[0].click();
+    }
+  }
 }
 var PluginBanksigneringUi = new PluginBanksigneringUi();

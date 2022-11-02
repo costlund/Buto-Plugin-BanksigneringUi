@@ -165,11 +165,18 @@ class PluginBanksigneringUi{
   }
   public function page_sign_success(){
     $element = new PluginWfYml(__DIR__.'/element/'.__FUNCTION__.'.yml');
-    //$element->setByTag(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'));
     $element->setByTag(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success'), 'success');
     wfDocument::renderElement($element);
   }
   public function page_account(){
+    /**
+     * 
+     */
+    if(!strlen(wfUser::getSession()->get('plugin/banksignering/ui/account/count'))){
+      wfUser::setSession('plugin/banksignering/ui/account/count', 0);
+    }else{
+      wfUser::setSession('plugin/banksignering/ui/account/count', 1 + wfUser::getSession()->get('plugin/banksignering/ui/account/count'));
+    }
     /**
      * 
      */

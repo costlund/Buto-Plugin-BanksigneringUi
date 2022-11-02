@@ -1,5 +1,9 @@
-version: 1.0.0
+version: 1.1.0
 history:
+  1.1.0:
+    date: '2022-11-02'
+    title: 'Auth'
+    description: 'On auth auto click on account if only one.'
   1.0.0:
     date: '2022-10-28'
     title: 'First version'

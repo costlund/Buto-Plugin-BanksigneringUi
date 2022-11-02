@@ -7,6 +7,8 @@ Try again: Prova igen
 Signing was sucessfully!: Signeringen lyckades!
 Close: Close
 Select an account.: Välj ett konto.
+Could not find any account using this BankID.: Kunde ej hitta ett konto med detta BankID.
 Failed to authenticate.: Misslyckades att logga in.
 Success: Success
 Sign in: Logga in
+Sign in ongoing...: Inloggning pågår...

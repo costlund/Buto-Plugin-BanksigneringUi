@@ -1,8 +1,16 @@
 -
   type: div
-  attribute: 
-    class: alert alert-success
-  innerHTML: Sign in success!
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+  innerHTML: 
+    -
+      type: div
+      attribute: 
+        class: alert alert-success
+      innerHTML: Sign in ongoing...
 -
   type: script
   innerHTML: $('#modal_banksignering_account').modal('hide'); location.reload();
