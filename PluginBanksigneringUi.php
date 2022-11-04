@@ -47,13 +47,48 @@ class PluginBanksigneringUi{
     $element = new PluginWfYml(__DIR__.'/element/'.__FUNCTION__.'.yml');
     wfDocument::renderElement($element);
   }
+  private function unset_session($param = null){
+    wfUser::unsetSession('plugin/banksignering/api');
+    if(!$param){
+      $sign_button = wfUser::getSession()->get('plugin/banksignering/ui/sign_button');
+      wfUser::unsetSession('plugin/banksignering/ui');
+      wfUser::setSession('plugin/banksignering/ui/sign_button', $sign_button);
+    }else{
+      wfUser::unsetSession('plugin/banksignering/ui/'.$param);
+    }
+  }
   public function page_auth(){
+    $this->unset_session();
     $element = new PluginWfYml(__DIR__.'/element/page_auth.yml');
     wfDocument::renderElement($element);
   }
   public function page_sign(){
+    $this->unset_session();
     $element = new PluginWfYml(__DIR__.'/element/page_sign.yml');
     wfDocument::renderElement($element);
+  }
+  public function page_method(){
+    if(!wfRequest::isPost()){
+      $method = wfRequest::get('method');
+      if($method=='qr'){
+        wfUser::setSession('plugin/banksignering/ui/method', 'qr');
+      }
+    }else{
+      $element = new PluginWfYml(__DIR__.'/element/page_method_capture.yml');
+      wfDocument::renderElement($element);
+    }
+  }
+  public function render_method($v){
+    $v = new PluginWfArray($v);
+    if(wfHelp::isLocalhost()){
+      $v->set('items/personalNumber/default', '199912312395');
+    }
+    return $v->get();
+  }
+  public function capture_method(){
+    wfUser::setSession('plugin/banksignering/ui/method', 'personalNumber');
+    wfUser::setSession('plugin/banksignering/ui/pid', wfRequest::get('personalNumber'));
+    return array("PluginBanksigneringUi.capture_method()");
   }
   public function page_auth_check(){
     /**
@@ -62,48 +97,54 @@ class PluginBanksigneringUi{
     if(wfUser::hasRole('client')){
       exit('Your are already signed in!');
     }
-    /**
-     * 
-     */
-    wfPlugin::includeonce('banksignering/api');
-    $api = new PluginBanksigneringApi($this->data->get('data/mode'));
-    $api->set_data($this->data->get('data'));
-    /**
-     * 
-     */
-    $auth = $api->get_auth();
-    if(!$auth){
-      $api->auth();
-    }
-    /**
-     * 
-     */
-    $api->collectstatus();
-    /**
-     * 
-     */
-    $element = new PluginWfYml(__DIR__.'/element/page_auth_check.yml');
-    $element->setByTag(array('src' => $api->get_qr_image()));
-    $element->setByTag($api->get_session()->get('response/auth_data'));
-    $element->setByTag($api->get_session()->get('response'), 'response');
-    wfDocument::renderElement($element);
-    /**
-     * log
-     */
-    $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/auth_data/date').'.yml');
-    $log->set($api->get_session()->get('response/auth_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
-    $log->save();
-    /**
-     * 
-     */
-    if(!$api->continue()){
-      if($api->success()){
-        /**
-         * success
-         */
-        wfUser::setSession('plugin/banksignering/ui/pid', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber'));
+    if(!wfUser::getSession()->get('plugin/banksignering/ui/method')){
+      $element = new PluginWfYml(__DIR__.'/element/page_method_set.yml');
+      wfDocument::renderElement($element);
+    }else{
+      /**
+       * 
+       */
+      wfPlugin::includeonce('banksignering/api');
+      $api = new PluginBanksigneringApi($this->data->get('data/mode'));
+      $api->set_data($this->data->get('data'));
+      /**
+       * 
+       */
+      $auth = $api->get_auth();
+      if(!$auth){
+        $api->auth(wfUser::getSession()->get('plugin/banksignering/ui/pid'));
       }
-      $api->unset_session();
+      /**
+       * 
+       */
+      $api->collectstatus();
+      /**
+       * 
+       */
+      $element = new PluginWfYml(__DIR__.'/element/page_auth_check.yml');
+      $element->setByTag(array('src' => $api->get_qr_image()));
+      $element->setByTag($api->get_session()->get('response/auth_data'));
+      $element->setByTag($api->get_session()->get('response'), 'response');
+      wfDocument::renderElement($element);
+      /**
+       * log
+       */
+      $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/auth_data/date').'.yml');
+      $log->set($api->get_session()->get('response/auth_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
+      $log->save();
+      /**
+       * 
+       */
+      if(!$api->continue()){
+        if($api->success()){
+          /**
+           * success
+           */
+          wfUser::setSession('plugin/banksignering/ui/pid', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber'));
+        }
+        $api->unset_session();
+        $this->unset_session('method');
+      }
     }
   }
   public function page_sign_check(){
@@ -113,54 +154,70 @@ class PluginBanksigneringUi{
     /**
      * 
      */
-    wfPlugin::includeonce('banksignering/api');
-    $api = new PluginBanksigneringApi($this->data->get('data/mode'));
-    $api->set_data($this->data->get('data'));
-    /**
-     * 
-     */
-    $sign = $api->get_sign();
-    if(!$sign){
-      $api->sign(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/text'));
+    if(false){
+      wfHelp::print(wfUser::getSession()->get('plugin/banksignering/ui'));
     }
     /**
      * 
      */
-    $api->collectstatus('sign');
-    /**
-     * 
-     */
-    $element = new PluginWfYml(__DIR__.'/element/page_sign_check.yml');
-    $element->setByTag(array('src' => $api->get_qr_image()));
-    $element->setByTag($api->get_session()->get('response/sign_data'));
-    $element->setByTag($api->get_session()->get('response'), 'response');
-    $element->setByTag(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'), 'sign_button');
-    wfDocument::renderElement($element);
-    /**
-     * log
-     */
-    $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/sign_data/date').'.yml');
-    $log->set($api->get_session()->get('response/sign_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
-    $log->save();
-    /**
-     * 
-     */
-    if(!$api->continue()){
-      if($api->success()){
-        /**
-         * run method
-         */
-        wfPlugin::includeonce(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/plugin'));
-        $obj = wfSettings::getPluginObj(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/plugin'));
-        $method = wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/method');
-        $data = $obj->$method(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'));
-        /**
-         * session
-         */
-        wfUser::setSession('plugin/banksignering/ui/sign_button/data/success/result', $data);
-        wfUser::setSession('plugin/banksignering/ui/sign_button/data/success/user', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user'));
+    if(!wfUser::getSession()->get('plugin/banksignering/ui/method')){
+      $element = new PluginWfYml(__DIR__.'/element/page_method_set.yml');
+      wfDocument::renderElement($element);
+    }else{
+      /**
+       * 
+       */
+      wfPlugin::includeonce('banksignering/api');
+      $api = new PluginBanksigneringApi($this->data->get('data/mode'));
+      $api->set_data($this->data->get('data'));
+      /**
+       * 
+       */
+      $sign = $api->get_sign();
+      if(!$sign){
+        $api->sign(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/text'), wfUser::getSession()->get('plugin/banksignering/ui/pid'));
       }
-      $api->unset_session();
+      /**
+       * 
+       */
+      $api->collectstatus('sign');
+      /**
+       * 
+       */
+      $element = new PluginWfYml(__DIR__.'/element/page_sign_check.yml');
+      $element->setByTag(array('src' => $api->get_qr_image()));
+      $element->setByTag($api->get_session()->get('response/sign_data'));
+      $element->setByTag($api->get_session()->get('response'), 'response');
+      $element->setByTag(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'), 'sign_button');
+      wfDocument::renderElement($element);
+      /**
+       * log
+       */
+      $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/sign_data/date').'.yml');
+      $log->set($api->get_session()->get('response/sign_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
+      $log->save();
+      /**
+       * 
+       */
+      if(!$api->continue()){
+        if($api->success()){
+          /**
+           * run method
+           */
+          wfPlugin::includeonce(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/plugin'));
+          $obj = wfSettings::getPluginObj(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/plugin'));
+          $method = wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/method');
+          $data = $obj->$method(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'));
+          /**
+           * session
+           */
+          wfUser::setSession('plugin/banksignering/ui/sign_button/data/success/result', $data);
+          wfUser::setSession('plugin/banksignering/ui/sign_button/data/success/user', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user'));
+        }
+        $api->unset_session();
+        $this->unset_session('method');
+        $this->unset_session('pid');
+      }
     }
   }
   public function page_sign_success(){

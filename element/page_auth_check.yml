@@ -12,14 +12,26 @@
     -
       type: div
       settings:
-        enabled: rs:continue
-      attribute: 
-        class: alert alert-success text-center
+        disabled: globals:_SESSION/plugin/banksignering/ui/pid
       innerHTML: 
         -
-          type: img
+          type: div
+          settings:
+            enabled: rs:continue
           attribute: 
-            src: rs:src
+            class: alert alert-success text-center
+          innerHTML: 
+            -
+              type: img
+              attribute: 
+                src: rs:src
+    -
+      type: div
+      settings:
+        enabled: globals:_SESSION/plugin/banksignering/ui/pid
+      attribute: 
+        class: alert alert-success
+      innerHTML: Open your BankID application follow instructions!
     -
       type: div
       settings:

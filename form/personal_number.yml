@@ -1,0 +1,30 @@
+url: /banksignering/method
+ajax: true
+submit_value: Next
+id: banksignering_form_personal_number
+focus_first_element: true
+i18n:
+  path: /plugin/banksignering/ui/i18n
+items:
+  personalNumber:
+    type: varchar
+    label: Personal number
+    placeholder: 'YYYYMMDDNNNN'
+    validator:
+      -
+        plugin: validate/pid
+        method: validate_pid
+        data:
+          skip_delimitator: true
+    mandatory: true
+settings:
+  globals:
+    -
+      path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+      value: '/plugin/banksignering/ui/i18n'
+render:
+  plugin: banksignering/ui
+  method: render_method
+capture:
+  plugin: banksignering/ui
+  method: capture_method

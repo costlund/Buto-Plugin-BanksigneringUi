@@ -29,5 +29,13 @@ function PluginBanksigneringUi(){
       items[0].click();
     }
   }
+  this.method = function(){
+    $.get( '/banksignering/method?method=qr', function( data ) {
+      PluginWfAjax.update('div_banksignering');
+    });
+  }
+  this.capture_method = function(){
+    PluginWfAjax.update('div_banksignering');
+  }
 }
 var PluginBanksigneringUi = new PluginBanksigneringUi();

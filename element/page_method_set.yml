@@ -1,0 +1,36 @@
+-
+  type: div
+  settings:
+    globals:
+      -
+        path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
+        value: '/plugin/banksignering/ui/i18n'
+  attribute: 
+    id: banksignering_div_buttons_personal_number
+    class: alert alert-success text-center
+  innerHTML:
+    -
+      type: a
+      attribute: 
+        class: btn btn-primary
+        onclick: "PluginBanksigneringUi.method()"
+      innerHTML: QR code
+    -
+      type: a
+      attribute: 
+        class: btn btn-primary
+        onclick: "$('#banksignering_div_buttons_personal_number').hide();$('#banksignering_div_form_personal_number').show();"
+      innerHTML: Personal number
+-
+  type: div
+  attribute:
+    id: banksignering_div_form_personal_number
+    style:
+      display: none
+  innerHTML: 
+    -
+      type: widget
+      data:
+        plugin: form/form_v1
+        method: render
+        data: yml:/plugin/banksignering/ui/form/personal_number.yml 
