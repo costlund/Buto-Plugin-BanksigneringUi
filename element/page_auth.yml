@@ -3,5 +3,5 @@
   attribute:
     id: div_banksignering
     style:
-      min-height: 600px
+      min-height: 500px
   innerHTML: load:/banksignering/auth_check

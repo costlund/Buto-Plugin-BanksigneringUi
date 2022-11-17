@@ -14,7 +14,7 @@
       attribute: 
         class: btn btn-primary
         onclick: "PluginBanksigneringUi.method()"
-      innerHTML: QR code
+      innerHTML: QR code or Link
     -
       type: a
       attribute: 

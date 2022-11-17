@@ -35,6 +35,18 @@
               type: img
               attribute: 
                 src: rs:src
+            -
+              type: p
+              attribute:
+                style:
+                  margin-top: 20px
+              innerHTML: 
+                -
+                  type: a
+                  attribute:
+                    href: response:sign/link
+                    target: _blank
+                  innerHTML: Open BankID application
     -
       type: div
       settings:
