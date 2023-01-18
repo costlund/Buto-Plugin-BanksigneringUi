@@ -129,16 +129,24 @@ class PluginBanksigneringUi{
       /**
        * log
        */
+      $key = $api->get_session()->get('response/auth_data/date_time').' ('. session_id().')';
       $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/auth_data/date').'.yml');
-      $log->set($api->get_session()->get('response/auth_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
+      $log->set($key , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
       $log->save();
       /**
        * 
        */
       if(!$api->continue()){
+        /**
+         * success
+         */
         if($api->success()){
           /**
-           * success
+           * db
+           */
+          $this->db_banksignering_ui_auth_insert($key);
+          /**
+           * session
            */
           wfUser::setSession('plugin/banksignering/ui/pid', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber'));
         }
@@ -193,13 +201,17 @@ class PluginBanksigneringUi{
       /**
        * log
        */
+      $key = $api->get_session()->get('response/sign_data/date_time').' ('. session_id().')';
       $log = new PluginWfYml(wfGlobals::getAppDir().'/../buto_data/theme/[theme]/plugin/banksignering/ui/'.$api->get_session()->get('response/sign_data/date').'.yml');
-      $log->set($api->get_session()->get('response/sign_data/date_time').' ('. session_id().')' , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
+      $log->set($key , array('data' => $this->data->get(), 'session' => $api->get_session()->get()));
       $log->save();
       /**
        * 
        */
       if(!$api->continue()){
+        /**
+         * success
+         */
         if($api->success()){
           /**
            * run method
@@ -208,6 +220,11 @@ class PluginBanksigneringUi{
           $obj = wfSettings::getPluginObj(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/plugin'));
           $method = wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data/success/method/method');
           $data = $obj->$method(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'));
+          /**
+           * db
+           */
+          $this->db_banksignering_ui_sign_insert($key);
+          $this->db_account_set_pid($api);
           /**
            * session
            */
@@ -291,5 +308,29 @@ class PluginBanksigneringUi{
     $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/ui'));
     $this->mysql->execute($sql->get());
     return $this->mysql->getMany();
+  }
+  private function db_banksignering_ui_auth_insert($key){
+    $this->mysql->open($this->data->get('data/mysql'));
+    $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', __FUNCTION__);
+    $sql->setByTag(array('id' => $key));
+    $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/api/response/collectstatus/apiCallResponse/Response/CompletionData/user'));
+    $this->mysql->execute($sql->get());
+    return null;
+  }
+  private function db_banksignering_ui_sign_insert($key){
+    $this->mysql->open($this->data->get('data/mysql'));
+    $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', __FUNCTION__);
+    $sql->setByTag(array('id' => $key));
+    $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/api/response/collectstatus/apiCallResponse/Response/CompletionData/user'));
+    $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/api/endpoint/sign'));
+    $this->mysql->execute($sql->get());
+    return null;
+  }
+  private function db_account_set_pid($api){
+    $this->mysql->open($this->data->get('data/mysql'));
+    $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', __FUNCTION__);
+    $sql->setByTag(array('pid' => $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber')));
+    $this->mysql->execute($sql->get());
+    return null;
   }
 }

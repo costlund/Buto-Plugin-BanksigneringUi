@@ -1,0 +1,46 @@
+tables:
+  banksignering_ui_auth:
+    field:
+      id:
+        primary_key: true
+        type: varchar(100)
+        not_null: true
+      personalNumber:
+        type: varchar(50)
+      name:
+        type: varchar(255)
+      givenName:
+        type: varchar(255)
+      surname:
+        type: varchar(255)
+  banksignering_ui_sign:
+    field:
+      id:
+        primary_key: true
+        type: varchar(100)
+        not_null: true
+      personalNumber:
+        type: varchar(50)
+      name:
+        type: varchar(255)
+      givenName:
+        type: varchar(255)
+      surname:
+        type: varchar(255)
+      userVisibleData:
+        type: varchar(255)
+      userNonVisibleData:
+        type: varchar(255)
+extra:
+  _description: Extra field to add to each table if not exist in schema.
+  field:
+    created_at:
+      type: timestamp
+      default: CURRENT_TIMESTAMP
+    updated_at:
+      type: timestamp
+    created_by:
+      type: varchar(50)
+    updated_by:
+      type: varchar(50)
+

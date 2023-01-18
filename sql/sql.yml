@@ -15,3 +15,57 @@ account_select_by_pid:
     - id
     - username
     - pid
+db_banksignering_ui_auth_insert:
+  sql: |
+    insert into banksignering_ui_auth (id, personalNumber, name, givenName, surname, created_by)
+    values (?, ?, ?, ?, ?, '[user_id]')
+  params:
+    -
+      type: s
+      value: rs:id
+    -
+      type: s
+      value: rs:personalNumber
+    -
+      type: s
+      value: rs:name
+    -
+      type: s
+      value: rs:givenName
+    -
+      type: s
+      value: rs:surname
+db_banksignering_ui_sign_insert:
+  sql: |
+    insert into banksignering_ui_sign (id, personalNumber, name, givenName, surname, created_by, userVisibleData, userNonVisibleData)
+    values (?, ?, ?, ?, ?, '[user_id]', ?, ?)
+  params:
+    -
+      type: s
+      value: rs:id
+    -
+      type: s
+      value: rs:personalNumber
+    -
+      type: s
+      value: rs:name
+    -
+      type: s
+      value: rs:givenName
+    -
+      type: s
+      value: rs:surname
+    -
+      type: s
+      value: rs:userVisibleData
+    -
+      type: s
+      value: rs:userNonVisibleData
+db_account_set_pid:
+  sql: |
+    update account set pid=?
+    where id='[user_id]'
+  params:
+    -
+      type: s
+      value: rs:pid
