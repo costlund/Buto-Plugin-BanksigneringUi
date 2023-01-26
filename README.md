@@ -34,6 +34,12 @@ data:
   method: include          
 ```
 
+## Database
+Add tables to database.
+```
+/plugin/banksignering/ui/sql/schema.yml
+```
+
 ## Button auth
 Using Javascript or a widget.
 ### Javascript

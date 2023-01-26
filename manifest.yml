@@ -1,5 +1,9 @@
-version: 1.4.0
+version: 1.4.1
 history:
+  1.4.1:
+    date: '2023-01-26'
+    title: Readme
+    description: 'Readme improvement.'
   1.4.0:
     date: '2023-01-18'
     title: Schema

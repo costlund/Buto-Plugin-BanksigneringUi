@@ -9,6 +9,10 @@ class PluginBanksigneringUi{
      */
     wfPlugin::includeonce('wf/mysql');
     $this->mysql =new PluginWfMysql();
+    /**
+     * 
+     */
+    wfPlugin::includeonce('wf/yml');
   }
   public function widget_include(){
     wfPlugin::enable('wf/embed');
