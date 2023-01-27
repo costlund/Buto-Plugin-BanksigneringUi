@@ -8,6 +8,7 @@
   attribute:
     class: btn btn-primary
     onclick: "PluginBanksigneringUi.sign(this);"
+    id: plugin_banksignering_ui_sign_button
   innerHTML: 
     -
       type: span

@@ -95,6 +95,18 @@ public function bankid_sign($data){
 }
 ```
 
+### On click
+Method PluginBanksigneringUi.sign is called when click on sign button. To override onclick one could use script below.
+```
+document.getElementById('plugin_banksignering_ui_sign_button').onclick = function(){
+  if(confirm('Ok?')){
+    PluginBanksigneringUi.sign(this);
+  }else{
+    return false;
+  }
+}
+```
+
 ## Button account
 Anywhere on a page. This modal will show up automatic on sign in success but could be used later to shift account.
 ```

@@ -1,5 +1,9 @@
-version: 1.4.1
+version: 1.4.2
 history:
+  1.4.2:
+    date: '2023-01-27'
+    title: Readme
+    description: 'Readme improvement about how to override onclick event for sign button.'
   1.4.1:
     date: '2023-01-26'
     title: Readme
