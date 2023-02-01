@@ -23,9 +23,6 @@
             data-dismiss: modal
             id: banksignering_button_close
           innerHTML: Close
--
-  type: script
-  innerHTML: success:script
--
-  type: script
-  innerHTML: document.getElementById('banksignering_button_close').click()
+        -
+          type: script
+          innerHTML: success:script

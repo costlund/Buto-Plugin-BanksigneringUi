@@ -14,7 +14,7 @@ function PluginBanksigneringUi(){
       this.account(this.btn);
     }else if(response=='sign'){
       $('#modal_banksignering_sign').modal('hide');
-      PluginWfBootstrapjs.modal({id: 'modal_banksignering_sign_success', label: this.btn.innerHTML, url: '/banksignering/sign_success'});
+      PluginWfBootstrapjs.modal({id: 'modal_banksignering_sign_success', label: this.btn.innerHTML, url: '/banksignering/sign_success', fade: false});
     }
   }
   this.account = function(btn){
