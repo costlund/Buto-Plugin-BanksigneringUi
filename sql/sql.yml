@@ -15,6 +15,33 @@ account_select_by_pid:
     - id
     - username
     - pid
+account_select_by_username:
+  sql: |
+    select
+    id
+    from account
+    where username=?
+    order by username
+  params:
+    -
+      type: s
+      value: rs:username
+  select:
+    - id
+account_create:
+  sql: |
+    insert into account (id, username, pid)
+    values (?, ?, ?)
+  params:
+    -
+      type: s
+      value: rs:id
+    -
+      type: s
+      value: rs:username
+    -
+      type: s
+      value: rs:pid
 db_banksignering_ui_auth_insert:
   sql: |
     insert into banksignering_ui_auth (id, personalNumber, name, givenName, surname, created_by)

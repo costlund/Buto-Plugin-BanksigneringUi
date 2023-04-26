@@ -173,11 +173,14 @@ class PluginBanksigneringUi{
      * 
      */
     if(!wfUser::getSession()->get('plugin/banksignering/ui/method')){
+      /**
+       * User has NOT selected qr or pid.
+       */
       $element = new PluginWfYml(__DIR__.'/element/page_method_set.yml');
       wfDocument::renderElement($element);
     }else{
       /**
-       * 
+       * User has selected qr or pid.
        */
       wfPlugin::includeonce('banksignering/api');
       $api = new PluginBanksigneringApi($this->data->get('data/mode'));
@@ -306,12 +309,57 @@ class PluginBanksigneringUi{
     $element = new PluginWfYml(__DIR__.'/element/page_account_click.yml');
     wfDocument::renderElement($element);
   }
+  private function db_account_get_available_username(){
+    wfPlugin::includeonce('string/randomize');
+    $randomize = new PluginStringRandomize();
+    $return = null;
+    for($i=0; $i<999; $i++){
+      $username = $randomize->randomize();
+      $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', 'account_select_by_username');
+      $sql->setByTag(array('username' => $username));
+      $this->mysql->execute($sql->get());
+      $rs = $this->mysql->getMany();
+      $sizeof = sizeof($rs);
+      if($sizeof ==0){
+        $return = $username;
+        break;
+      }
+    }
+    return $return;
+  }
   private function db_account_select_by_pid(){
     $this->mysql->open($this->data->get('data/mysql'));
     $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', 'account_select_by_pid');
     $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/ui'));
     $this->mysql->execute($sql->get());
-    return $this->mysql->getMany();
+    $rs = $this->mysql->getMany();
+    /**
+     * 
+     */
+    if(sizeof($rs)==0){
+      /**
+       * username, generate uniquely.
+       */
+      $username = $this->db_account_get_available_username();
+      if(!$username){
+        throw new Exception(__CLASS__.'::'.__FUNCTION__.' says: Could not generate username!');
+      }
+      /**
+       * Create an account.
+       */
+      $account = new PluginWfArray();
+      $account->set('id', wfCrypt::getUid());
+      $account->set('username', $username);
+      $account->set('pid', wfUser::getSession()->get('plugin/banksignering/ui/pid'));
+      /**
+       * 
+       */
+      $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', 'account_create');
+      $sql->setByTag($account->get());
+      $this->mysql->execute($sql->get());
+      $rs[] = $account->get();
+    }
+    return $rs;
   }
   private function db_banksignering_ui_auth_insert($key){
     $this->mysql->open($this->data->get('data/mysql'));
