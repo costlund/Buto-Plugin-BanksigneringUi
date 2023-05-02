@@ -6,7 +6,7 @@
         path_to_key: 'settings/plugin/i18n/translate_v1/settings/path'
         value: '/plugin/banksignering/ui/i18n'
   attribute:
-    class: btn btn-primary
+    class: btn btn-light
     onclick: "PluginBanksigneringUi.sign(this);"
     id: plugin_banksignering_ui_sign_button
   innerHTML: 
