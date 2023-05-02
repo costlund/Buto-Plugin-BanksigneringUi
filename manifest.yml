@@ -1,5 +1,9 @@
-version: 1.5.0
+version: 1.6.0
 history:
+  1.6.0:
+    date: '2023-05-02'
+    title: Manifest
+    description: 'Add plugin string/randomize to manifest.'
   1.5.0:
     date: '2023-04-25'
     title: Account
@@ -72,6 +76,9 @@ plugin:
   -
     name: validate/pid
     version: 1.3.0
+  -
+    name: string/randomize
+    version: 1.0.1
 sys:
   -
     name: mercury
