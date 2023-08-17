@@ -253,7 +253,7 @@ class PluginBanksigneringUi{
     /**
      * 
      */
-    if(!strlen(wfUser::getSession()->get('plugin/banksignering/ui/account/count'))){
+    if(!wfPhpfunc::strlen(wfUser::getSession()->get('plugin/banksignering/ui/account/count'))){
       wfUser::setSession('plugin/banksignering/ui/account/count', 0);
     }else{
       wfUser::setSession('plugin/banksignering/ui/account/count', 1 + wfUser::getSession()->get('plugin/banksignering/ui/account/count'));
