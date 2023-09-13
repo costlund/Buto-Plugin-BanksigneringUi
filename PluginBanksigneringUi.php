@@ -78,6 +78,17 @@ class PluginBanksigneringUi{
         wfUser::setSession('plugin/banksignering/ui/method', 'qr');
       }
     }else{
+      /**
+       * set pid in cookie
+       */
+      if(wfRequest::get('personalNumber')){
+        wfPlugin::includeonce('php/cookie');
+        $cookie = new PluginPhpCookie();
+        $cookie->set('plugin_banksignering_ui_personalNumber', wfRequest::get('personalNumber'));
+      }
+      /**
+       * 
+       */
       $element = new PluginWfYml(__DIR__.'/element/page_method_capture.yml');
       wfDocument::renderElement($element);
     }
@@ -87,6 +98,17 @@ class PluginBanksigneringUi{
     if(wfHelp::isLocalhost()){
       $v->set('items/personalNumber/default', '199912312395');
     }
+    /**
+     * get pid from cookie
+     */
+    wfPlugin::includeonce('php/cookie');
+    $cookie = new PluginPhpCookie();
+    if($cookie->get('plugin_banksignering_ui_personalNumber')){
+      $v->set('items/personalNumber/default', $cookie->get('plugin_banksignering_ui_personalNumber'));
+    }
+    /**
+     * 
+     */
     return $v->get();
   }
   public function capture_method(){

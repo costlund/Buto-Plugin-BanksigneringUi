@@ -1,5 +1,6 @@
 function PluginBanksigneringUi(){
   this.btn = null;
+  this.plugin_banksignering_ui_timeout = null;
   this.auth = function(btn){
     this.btn = btn;
     PluginWfBootstrapjs.modal({id: 'modal_banksignering_auth', label: btn.innerHTML, url: '/banksignering/auth'});
@@ -29,13 +30,28 @@ function PluginBanksigneringUi(){
       items[0].click();
     }
   }
-  this.method = function(){
+  this.method = function(btn){
+    /**
+     * disable buttons
+     */
+    $('#banksignering_div_buttons_personal_number_method').attr('disabled', 'disabled');
+    $('#banksignering_div_buttons_personal_number_method').addClass('disabled');
+    $('#banksignering_div_buttons_personal_number_pid').attr('disabled', 'disabled');
+    $('#banksignering_div_buttons_personal_number_pid').addClass('disabled');
+    /**
+     * 
+     */
     $.get( '/banksignering/method?method=qr', function( data ) {
       PluginWfAjax.update('div_banksignering');
     });
   }
   this.capture_method = function(){
     PluginWfAjax.update('div_banksignering');
+  }
+  this.try_again = function(btn){
+    $(btn).attr('disabled', 'disabled');
+    $(btn).addClass('disabled');
+    PluginWfAjax.update('div_banksignering')
   }
 }
 var PluginBanksigneringUi = new PluginBanksigneringUi();

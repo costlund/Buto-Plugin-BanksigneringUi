@@ -5,3 +5,6 @@
     style:
       min-height: 460px
   innerHTML: load:/banksignering/auth_check
+-
+  type: script
+  innerHTML: clearTimeout(PluginBanksigneringUi.plugin_banksignering_ui_timeout)

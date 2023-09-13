@@ -32,9 +32,17 @@
             class: alert alert-success text-center
           innerHTML: 
             -
-              type: img
-              attribute: 
-                src: rs:src
+              type: div
+              attribute:
+                style:
+                  min-width: 300px
+                  min-height: 300px
+                  background: white
+              innerHTML: 
+                -
+                  type: img
+                  attribute: 
+                    src: rs:src
             -
               type: p
               attribute:
@@ -99,7 +107,7 @@
                   type: a
                   attribute: 
                     class: btn btn-primary
-                    onclick: PluginWfAjax.update('div_banksignering')
+                    onclick: PluginBanksigneringUi.try_again(this)
                   innerHTML: Try again
     -
       type: div
@@ -112,11 +120,18 @@
         - 
           type: span
           innerHTML: rs:time_count
+        -
+          type: a
+          attribute: 
+            onclick: PluginWfAjax.update('modal_banksignering_sign_body');
+            style:
+              float: right
+          innerHTML: Cancel
 -
   type: script
   settings:
     enabled: rs:continue
   innerHTML: |
-    setTimeout(function() { 
+    PluginBanksigneringUi.plugin_banksignering_ui_timeout = setTimeout(function() { 
         PluginWfAjax.update('div_banksignering');
     }, 5000);

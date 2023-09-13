@@ -28,3 +28,11 @@ render:
 capture:
   plugin: banksignering/ui
   method: capture_method
+buttons:
+  -
+    type: a
+    attribute: 
+      onclick: PluginBanksigneringUi.try_again(this)
+      style:
+        float: right
+    innerHTML: Cancel
