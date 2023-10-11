@@ -175,6 +175,17 @@ class PluginBanksigneringUi{
            * session
            */
           wfUser::setSession('plugin/banksignering/ui/pid', $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber'));
+          /**
+           * run methods
+           */
+          if($this->data->get('auth/success/methods')){
+            foreach($this->data->get('auth/success/methods') as $k => $v){
+              wfPlugin::includeonce($v['plugin']);
+              $obj = wfSettings::getPluginObj($v['plugin']);
+              $method = $v['method'];
+              $obj->$method();
+            }
+          }
         }
         $api->unset_session();
         $this->unset_session('method');

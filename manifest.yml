@@ -1,5 +1,9 @@
-version: 1.8.1
+version: 1.9.0
 history:
+  1.9.0:
+    date: '2023-10-11'
+    title: Methods
+    description: 'Run methods on success..'
   1.8.1:
     date: '2023-09-27'
     title: Versions

@@ -3,17 +3,28 @@
 - Sign up with them and they provide you with details for testing.
 
 ## Theme settings
+### plugin_modules
 ```
 plugin_modules:
   banksignering:
     plugin: banksignering/ui
 ```
+### plugin
 ```
 plugin:
   banksignering:
     ui:
       enabled: true
       data: 'yml:/../buto_data/theme/[theme]/banksignering.yml'
+```
+Run methods on success.
+```
+      auth:
+        success:
+          methods:
+            -
+              plugin: checkbiz/db
+              method: on_auth
 ```
 banksignering.yml
 ```
