@@ -23,8 +23,8 @@ Run methods on success.
         success:
           methods:
             -
-              plugin: checkbiz/db
-              method: on_auth
+              plugin: my/plugin
+              method: my_method
 ```
 banksignering.yml
 ```

@@ -1,9 +1,13 @@
-version: 1.9.0
+version: 1.9.1
 history:
+  1.9.1:
+    date: '2023-10-12'
+    title: Readme
+    description: 'Readme update.'
   1.9.0:
     date: '2023-10-11'
     title: Methods
-    description: 'Run methods on success..'
+    description: 'Run methods on success.'
   1.8.1:
     date: '2023-09-27'
     title: Versions
