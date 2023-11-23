@@ -2,8 +2,6 @@
   type: div
   attribute:
     id: div_banksignering
-    style:
-      min-height: 460px
   innerHTML: load:/banksignering/auth_check
 -
   type: script
