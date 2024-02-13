@@ -1,5 +1,9 @@
-version: 1.9.2
+version: 1.9.3
 history:
+  1.9.3:
+    date: '2024-02-12'
+    title: Session
+    description: 'Handle if no pid in session.'
   1.9.2:
     date: '2023-11-23'
     title: Layout

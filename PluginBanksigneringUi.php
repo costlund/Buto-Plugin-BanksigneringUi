@@ -361,6 +361,15 @@ class PluginBanksigneringUi{
     return $return;
   }
   private function db_account_select_by_pid(){
+    /**
+     * If no pid in session.
+     */
+    if(!wfUser::getSession()->get('plugin/banksignering/ui/pid')){
+      return array();
+    }
+    /**
+     * 
+     */
     $this->mysql->open($this->data->get('data/mysql'));
     $sql = new PluginWfYml(__DIR__.'/sql/sql.yml', 'account_select_by_pid');
     $sql->setByTag(wfUser::getSession()->get('plugin/banksignering/ui'));
