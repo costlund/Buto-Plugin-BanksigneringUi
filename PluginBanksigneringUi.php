@@ -295,6 +295,12 @@ class PluginBanksigneringUi{
      * 
      */
     $rs = $this->db_account_select_by_pid();
+    wfUser::setSession('plugin/banksignering/ui/account/sizeof', sizeof($rs));
+    if(sizeof($rs)<=1){
+      wfUser::setSession('plugin/banksignering/ui/account/sizeof_multiple', false);
+    }else{
+      wfUser::setSession('plugin/banksignering/ui/account/sizeof_multiple', true);
+    }
     $items = array();
     foreach($rs as $v){
       $item = new PluginWfYml(__DIR__.'/element/page_account_item.yml');

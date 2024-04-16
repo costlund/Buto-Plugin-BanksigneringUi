@@ -1,5 +1,9 @@
-version: 1.9.3
+version: 1.10.0
 history:
+  1.10.0:
+    date: '2024-04-16'
+    title: Session
+    description: 'Add session params plugin/banksignering/ui/account/sizeof, plugin/banksignering/ui/account/sizeof_multiple.'
   1.9.3:
     date: '2024-02-12'
     title: Session
