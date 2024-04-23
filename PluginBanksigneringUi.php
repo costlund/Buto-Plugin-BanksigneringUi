@@ -343,6 +343,17 @@ class PluginBanksigneringUi{
      */
     wfUser::setSession('plugin/banksignering/ui', $session_data);
     /**
+     * methods
+     */
+    if($this->data->get('signin/success/methods')){
+      foreach($this->data->get('signin/success/methods') as $k => $v){
+        wfPlugin::includeonce($v['plugin']);
+        $obj = wfSettings::getPluginObj($v['plugin']);
+        $method = $v['method'];
+        $obj->$method();
+      }
+    }
+    /**
      * 
      */
     $element = new PluginWfYml(__DIR__.'/element/page_account_click.yml');

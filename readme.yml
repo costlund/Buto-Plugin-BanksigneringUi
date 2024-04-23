@@ -1,0 +1,216 @@
+readme:
+  name: Buto-Plugin-BanksigneringUi
+  description: |
+    - Using Banksignering.se service.
+    - Sign up with them and they provide you with details for testing.
+  item:
+    -
+      name: Sign in flow
+      description: |
+        - User click on Sign in button to open modal with qr code.
+        - On success modal Account appear with all accounts where pid has a match (if no account exist with current PID it will be created).
+        - User click on a account and are signed in (if only one account this is automatic).
+    -
+      name: Log
+      description: |
+        Log files are created per day basis.
+        ```
+        /../buto_data/theme/[theme]/plugin/banksignering/ui/YYYY-MM-DD.yml
+        ```
+    -
+      name: PIDs
+      description: |
+        Test pids.
+        - 202201012396
+        - 202201022387
+        - 202201032394
+        - 199912312395
+    -
+      name: Settings
+      description: |
+        ```
+        plugin_modules:
+          banksignering:
+            plugin: banksignering/ui
+        ```
+        ```
+        plugin:
+          banksignering:
+            ui:
+              enabled: true
+              data: 'yml:/../buto_data/theme/[theme]/banksignering.yml'
+        ```
+        Run methods on success.
+        ```
+              auth:
+                success:
+                  methods:
+                    -
+                      plugin: my/plugin
+                      method: my_method
+        ```
+        Run methods on signin.
+        This happends after BankID auth and the user is signed in to an account.
+        ```
+              signin:
+                success:
+                  methods:
+                    -
+                      plugin: marknadsurval/db
+                      method: set_user
+        ```
+        banksignering.yml
+        ```
+        mode: test
+        apiUser: _provided_by_Banksignering.se_
+        password: _provided_by_Banksignering.se_
+        companyApiGuid: _provided_by_Banksignering.se_
+        mysql: 'yml:/../buto_data/_mysql.yml'
+        ```
+    -
+      name: Usage
+      item:
+        -
+          name: Schema
+          description: |
+            Add tables to database.
+            ```
+            /plugin/banksignering/ui/sql/schema.yml
+            ```
+        -
+          name: Button auth
+          description: |
+            Using Javascript or widget_auth_button.
+            ```
+            type: a
+            attribute:
+              onclick: "PluginBanksigneringUi.auth(this);"
+            innerHTML: 'BankID sign in'
+            ```
+        -
+          name: Button account
+          description: |
+            Anywhere on a page. This modal will show up automatic on sign in success but could be used later to shift account.
+            ```
+            type: a
+            attribute:
+              onclick: "PluginBanksigneringUi.account(this);"
+            innerHTML: 'BankID accounts'
+            ```
+    -
+      name: Pages
+      item:
+        -
+          name: page_account
+        -
+          name: page_account_click
+        -
+          name: page_auth
+        -
+          name: page_auth_check
+        -
+          name: page_method
+        -
+          name: page_sign
+        -
+          name: page_sign_check
+        -
+          name: page_sign_success
+    -
+      name: Widgets
+      item:
+        -
+          name: widget_auth_button
+          description: |
+            ```
+            type: widget
+            data:
+              plugin: banksignering/ui
+              method: auth_button
+            ```
+        -
+          name: widget_include
+          description: |
+            Include in page head section.
+            ```
+            type: widget
+            data:
+              plugin: banksignering/ui
+              method: include          
+            ```
+        -
+          name: widget_sign_button
+          description: |
+            When this button is render data is set in session.
+            ```
+            type: widget
+            data:
+              plugin: banksignering/ui
+              method: sign_button
+              data:
+                text: 'Sign of document test.pdf'
+                before:
+                  method:
+                    plugin: any/plugin
+                    method: bankid_sign_before
+                success:
+                  method:
+                    plugin: any/plugin
+                    method: bankid_sign
+                  script: console.log('Script to run after method!')
+            ```
+            Before method (optional).
+            ```
+            public function bankid_sign_before($data){
+              $data = new PluginWfArray($data);
+              $data->set('data/text', 'Change text param...');
+              return $data->get();
+            }
+            ```
+            Success method.
+            ```
+            public function bankid_sign($data){
+              $session_data =  wfUser::getSession()->get('plugin/banksignering/ui/sign_button');
+              /**
+                * Run some data when bankid sign success.
+                */
+              return __CLASS__.' says: success in method '.__FUNCTION__.'!';
+            }
+            ```
+            Method PluginBanksigneringUi.sign is called when click on sign button. To override onclick one could use script below.
+            ```
+            document.getElementById('plugin_banksignering_ui_sign_button').onclick = function(){
+              if(confirm('Ok?')){
+                PluginBanksigneringUi.sign(this);
+              }else{
+                return false;
+              }
+            }
+            ```
+    -
+      name: Event
+      item: {  }
+    -
+      name: Construct
+      item:
+        -
+          name: __construct
+    -
+      name: Methods
+      item:
+        -
+          name: unset_session
+        -
+          name: render_method
+        -
+          name: capture_method
+        -
+          name: db_account_get_available_username
+        -
+          name: db_account_select_by_pid
+        -
+          name: db_banksignering_ui_auth_insert
+        -
+          name: db_banksignering_ui_sign_insert
+        -
+          name: db_account_set_pid
