@@ -97,6 +97,16 @@ readme:
               onclick: "PluginBanksigneringUi.account(this);"
             innerHTML: 'BankID accounts'
             ```
+        -
+          name: Button Auth as Webadmin
+          description: |
+            Anywhere on a page. A modal where user with role webadmin can provide any pid for authorisation.
+            ```
+            type: a
+            attribute:
+              onclick: "PluginBanksigneringUi.auth_as_webadmin(this)"
+            innerHTML: 'BankID accounts'
+            ```
     -
       name: Pages
       item:

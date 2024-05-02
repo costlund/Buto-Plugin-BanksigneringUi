@@ -53,5 +53,12 @@ function PluginBanksigneringUi(){
     $(btn).addClass('disabled');
     PluginWfAjax.update('div_banksignering')
   }
+  this.auth_as_webadmin = function(btn){
+    this.btn = btn;
+    PluginWfBootstrapjs.modal({id: 'modal_banksignering_auth_as_webadmin', label: btn.innerHTML, url: '/banksignering/auth_as_webadmin'});
+  }
+  this.auth_as_webadmin_capture = function(){
+    this.account(this.btn);
+  }
 }
 var PluginBanksigneringUi = new PluginBanksigneringUi();

@@ -1,0 +1,6 @@
+-
+  type: widget
+  data:
+    plugin: form/form_v1
+    method: capture
+    data: yml:/plugin/banksignering/ui/form/auth_as_webadmin.yml 

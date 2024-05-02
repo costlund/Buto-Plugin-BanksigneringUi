@@ -101,6 +101,16 @@ attribute:
   onclick: "PluginBanksigneringUi.account(this);"
 innerHTML: 'BankID accounts'</code></pre>
 
+<a name="key_4_3"></a>
+
+### Button Auth as Webadmin
+
+<p>Anywhere on a page. A modal where user with role webadmin can provide any pid for authorisation.</p>
+<pre><code>type: a
+attribute:
+  onclick: "PluginBanksigneringUi.auth_as_webadmin(this)"
+innerHTML: 'BankID accounts'</code></pre>
+
 <a name="key_5"></a>
 
 ## Pages

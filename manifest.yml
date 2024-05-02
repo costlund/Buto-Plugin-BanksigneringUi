@@ -1,5 +1,9 @@
-version: 1.11.0
+version: 1.12.0
 history:
+  1.12.0:
+    date: '2024-05-02'
+    title: 'Auth as Webadmin'
+    description: 'Add method to auth as webadmin.'
   1.11.0:
     date: '2024-04-23'
     title: 'Signin methods'

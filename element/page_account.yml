@@ -30,7 +30,7 @@
         -
           type: script
           settings:
-            disabled: globals:_SESSION/plugin/banksignering/ui/account/count
+            disabled: globals:_SESSION/plugin/banksignering/ui/account/sizeof_multiple
           innerHTML: PluginBanksigneringUi.account_click_if_one()
     -
       type: div

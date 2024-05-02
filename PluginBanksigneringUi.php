@@ -116,6 +116,34 @@ class PluginBanksigneringUi{
     wfUser::setSession('plugin/banksignering/ui/pid', wfRequest::get('personalNumber'));
     return array("PluginBanksigneringUi.capture_method()");
   }
+  public function capture_auth_as_webadmin(){
+    /**
+     * cookie
+     */
+    wfPlugin::includeonce('php/cookie');
+    $cookie = new PluginPhpCookie();
+    $cookie->set('plugin_banksignering_ui_personalNumber', wfRequest::get('personalNumber'));
+    /**
+     * session
+     */
+    wfUser::setSession('plugin/banksignering/ui/method', 'personalNumber');
+    wfUser::setSession('plugin/banksignering/ui/pid', wfRequest::get('personalNumber'));
+    /**
+     * run methods
+     */
+    if($this->data->get('auth/success/methods')){
+      foreach($this->data->get('auth/success/methods') as $k => $v){
+        wfPlugin::includeonce($v['plugin']);
+        $obj = wfSettings::getPluginObj($v['plugin']);
+        $method = $v['method'];
+        $obj->$method();
+      }
+    }
+    /**
+     * 
+     */
+    return array("PluginBanksigneringUi.auth_as_webadmin_capture()");
+  }
   public function page_auth_check(){
     /**
      * 
@@ -443,5 +471,11 @@ class PluginBanksigneringUi{
     $sql->setByTag(array('pid' => $api->get_session()->get('response/collectstatus/apiCallResponse/Response/CompletionData/user/personalNumber')));
     $this->mysql->execute($sql->get());
     return null;
+  }
+  public function page_auth_as_webadmin(){
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+  }
+  public function page_auth_as_webadmin_capture(){
+    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
 }
