@@ -11,6 +11,7 @@
   innerHTML: 
     -
       type: div
+      _: 'QR code with link to open application.'
       settings:
         disabled: globals:_SESSION/plugin/banksignering/ui/pid
       innerHTML: 
@@ -110,13 +111,6 @@
         - 
           type: span
           innerHTML: rs:time_count
-        -
-          type: a
-          attribute: 
-            onclick: PluginWfAjax.update('modal_banksignering_auth_body');
-            style:
-              float: right
-          innerHTML: Cancel
     -
       type: script
       settings:

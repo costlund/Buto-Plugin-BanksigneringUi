@@ -22,7 +22,7 @@
     -
       type: div
       settings:
-        disabled: globals:_SESSION/plugin/banksignering/ui/pid
+        _disabled: globals:_SESSION/plugin/banksignering/ui/pid
       innerHTML: 
         -
           type: div
@@ -58,7 +58,8 @@
     -
       type: div
       settings:
-        enabled: globals:_SESSION/plugin/banksignering/ui/pid
+        _enabled: globals:_SESSION/plugin/banksignering/ui/pid
+        enabled: false
       attribute: 
         class: alert alert-success
       innerHTML: Open your BankID application follow instructions!
@@ -120,13 +121,6 @@
         - 
           type: span
           innerHTML: rs:time_count
-        -
-          type: a
-          attribute: 
-            onclick: PluginWfAjax.update('modal_banksignering_sign_body');
-            style:
-              float: right
-          innerHTML: Cancel
 -
   type: script
   settings:

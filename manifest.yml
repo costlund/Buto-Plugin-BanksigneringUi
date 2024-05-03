@@ -1,5 +1,9 @@
-version: 1.12.0
+version: 1.13.0
 history:
+  1.13.0:
+    date: '2024-05-02'
+    title: 'Personal number and Sign improvement'
+    description: 'Remove unset_session in method page_sign. Stop using page_method_set.yml due to no personal number in usage anymore in methods page_auth_check and page_sign_check. Stop unset pid from session in method page_sign_check on success. Remove Cancel buttons.'
   1.12.0:
     date: '2024-05-02'
     title: 'Auth as Webadmin'

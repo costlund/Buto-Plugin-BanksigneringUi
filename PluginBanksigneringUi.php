@@ -67,7 +67,6 @@ class PluginBanksigneringUi{
     wfDocument::renderElement($element);
   }
   public function page_sign(){
-    $this->unset_session();
     $element = new PluginWfYml(__DIR__.'/element/page_sign.yml');
     wfDocument::renderElement($element);
   }
@@ -151,7 +150,10 @@ class PluginBanksigneringUi{
     if(wfUser::hasRole('client')){
       exit('Your are already signed in!');
     }
-    if(!wfUser::getSession()->get('plugin/banksignering/ui/method')){
+    if(false && !wfUser::getSession()->get('plugin/banksignering/ui/method')){
+      /**
+       * This part should be removed (240503).
+       */
       $element = new PluginWfYml(__DIR__.'/element/page_method_set.yml');
       wfDocument::renderElement($element);
     }else{
@@ -233,7 +235,10 @@ class PluginBanksigneringUi{
     /**
      * 
      */
-    if(!wfUser::getSession()->get('plugin/banksignering/ui/method')){
+    if(false && !wfUser::getSession()->get('plugin/banksignering/ui/method')){
+      /**
+       * This part should be removed (240503).
+       */
       /**
        * User has NOT selected qr or pid.
        */
@@ -301,7 +306,6 @@ class PluginBanksigneringUi{
         }
         $api->unset_session();
         $this->unset_session('method');
-        $this->unset_session('pid');
       }
     }
   }

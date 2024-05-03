@@ -1,5 +1,10 @@
 -
   type: div
+  attribute: 
+    class: alert alert-warning
+  innerHTML: Not necessesary anymore due to personal number not in usage anymore (240503).
+-
+  type: div
   settings:
     globals:
       -
