@@ -45,6 +45,7 @@
                   attribute:
                     href: response:auth/link
                     target: _blank
+                    onclick: "$.get('/banksignering/log_method', function(data, status){})"
                   innerHTML: Open BankID application
     -
       type: div

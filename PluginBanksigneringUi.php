@@ -482,4 +482,11 @@ class PluginBanksigneringUi{
   public function page_auth_as_webadmin_capture(){
     wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
   }
+  public function page_log_method(){
+    /**
+     * set to SameUnit
+     */
+    wfUser::setSession('plugin/banksignering/api/log/method', 'SameUnit');
+    exit('ok');
+  }
 }
