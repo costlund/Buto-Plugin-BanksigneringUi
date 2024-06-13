@@ -1,6 +1,15 @@
 -
   type: widget
+  settings:
+    enabled: rs:enabled
   data:
     plugin: form/form_v1
     method: render
     data: yml:/plugin/banksignering/ui/form/auth_as_webadmin.yml 
+-
+  type: div
+  settings:
+    disabled: rs:enabled
+  attribute: 
+    class: alert alert-warning
+  innerHTML: Only webadmin or host localhost can access this form.

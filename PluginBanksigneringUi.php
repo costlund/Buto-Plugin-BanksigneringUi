@@ -477,10 +477,14 @@ class PluginBanksigneringUi{
     return null;
   }
   public function page_auth_as_webadmin(){
-    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag($this->auth_as_webadmin_data()->get());
+    wfDocument::renderElement($element);
   }
   public function page_auth_as_webadmin_capture(){
-    wfDocument::renderElementFromFolder(__DIR__, __FUNCTION__);
+    $element = wfDocument::getElementFromFolder(__DIR__, __FUNCTION__);
+    $element->setByTag($this->auth_as_webadmin_data()->get());
+    wfDocument::renderElement($element);
   }
   public function page_log_method(){
     /**
@@ -488,5 +492,21 @@ class PluginBanksigneringUi{
      */
     wfUser::setSession('plugin/banksignering/api/log/method', 'SameUnit');
     exit('ok');
+  }
+  public function nav_item_auth_as_webadmin($data){
+    $data = new PluginWfArray($data);
+    $element = new PluginWfYml(__DIR__.'/element/nav_item_auth_as_webadmin.yml');
+    $element->setByTag($this->auth_as_webadmin_data()->get());
+    $data->merge($element->get());
+    return $data->get();
+
+  }
+  private function auth_as_webadmin_data(){
+    $data = new PluginWfArray();
+    $data->set('enabled', false);
+    if(wfUser::hasRole('webadmin') || wfServer::isHost('localhost')){
+      $data->set('enabled', true);
+    }
+    return $data;
   }
 }

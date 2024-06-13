@@ -1,5 +1,9 @@
-version: 1.14.0
+version: 1.15.0
 history:
+  1.15.0:
+    date: '2024-06-13'
+    title: 'Nav item method'
+    description: 'Add nav item method. Improvement security.'
   1.14.0:
     date: '2024-05-30'
     title: Log

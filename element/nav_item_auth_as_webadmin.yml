@@ -1,0 +1,4 @@
+onclick: "PluginBanksigneringUi.auth_as_webadmin(this)"
+text: Auth with PID (webadmin)
+settings:
+  enabled: rs:enabled
