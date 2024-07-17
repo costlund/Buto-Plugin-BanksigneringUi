@@ -4,6 +4,7 @@ account_select_by_pid:
     id,
     username,
     pid
+    ,(select group_concat(role) from account_role where account_id=account.id) as roles
     from account
     where pid=?
     order by username
@@ -15,6 +16,7 @@ account_select_by_pid:
     - id
     - username
     - pid
+    - roles
 account_select_by_username:
   sql: |
     select

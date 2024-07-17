@@ -3,4 +3,14 @@ attribute:
   class: list-group-item
   data-id: rs:id
   onclick: PluginBanksigneringUi.account_click(this)
-innerHTML: rs:username
+innerHTML: 
+  -
+    type: span
+    innerHTML: rs:username
+  -
+    type: span
+    settings:
+      enabled: rs:roles
+    attribute:
+      class: content-parentheses
+    innerHTML: rs:roles
