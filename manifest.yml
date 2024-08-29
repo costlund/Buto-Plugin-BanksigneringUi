@@ -1,5 +1,9 @@
-version: 1.17.0
+version: 1.18.0
 history:
+  1.18.0:
+    date: '2024-08-29'
+    title: Load
+    description: 'Change how to load ajax content.'
   1.17.0:
     date: '2024-08-29'
     title: Hint code

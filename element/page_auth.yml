@@ -2,7 +2,7 @@
   type: div
   attribute:
     id: div_banksignering
-  innerHTML: load:/banksignering/auth_check
+    wf_ajax_load: '/banksignering/auth_check'
 -
   type: script
   innerHTML: clearTimeout(PluginBanksigneringUi.plugin_banksignering_ui_timeout)
