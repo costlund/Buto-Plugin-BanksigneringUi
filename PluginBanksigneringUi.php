@@ -180,7 +180,7 @@ class PluginBanksigneringUi{
       $element = new PluginWfYml(__DIR__.'/element/page_auth_check.yml');
       $element->setByTag(array('src' => $api->get_qr_image()));
       $element->setByTag($api->get_session()->get('response/auth_data'));
-      $element->setByTag($api->get_session()->get('response'), 'response');
+      $element->setByTag($api->get_session()->get('response'), 'response', true);
       wfDocument::renderElement($element);
       /**
        * log
@@ -268,7 +268,7 @@ class PluginBanksigneringUi{
       $element = new PluginWfYml(__DIR__.'/element/page_sign_check.yml');
       $element->setByTag(array('src' => $api->get_qr_image()));
       $element->setByTag($api->get_session()->get('response/sign_data'));
-      $element->setByTag($api->get_session()->get('response'), 'response');
+      $element->setByTag($api->get_session()->get('response'), 'response', true);
       $element->setByTag(wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data'), 'sign_button');
       wfDocument::renderElement($element);
       /**

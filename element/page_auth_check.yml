@@ -83,6 +83,8 @@
               innerHTML: Failed to authenticate.
             -
               type: p
+              settings:
+                enabled: response:collectstatus/apiCallResponse/Response/HintCode
               innerHTML:
                 - 
                   type: strong

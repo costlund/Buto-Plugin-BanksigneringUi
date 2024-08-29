@@ -92,6 +92,8 @@
               innerHTML: Failed to sign.
             -
               type: p
+              settings:
+                enabled: response:collectstatus/apiCallResponse/Response/HintCode
               innerHTML:
                 - 
                   type: strong
