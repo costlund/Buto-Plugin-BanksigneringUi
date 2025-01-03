@@ -504,7 +504,7 @@ class PluginBanksigneringUi{
   private function auth_as_webadmin_data(){
     $data = new PluginWfArray();
     $data->set('enabled', false);
-    if(wfUser::hasRole('webadmin') || wfServer::isHost('localhost')){
+    if(wfUser::hasRole('webadmin') || wfHelp::isLocalhost()){
       $data->set('enabled', true);
     }
     return $data;

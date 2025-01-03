@@ -1,5 +1,9 @@
-version: 1.18.0
+version: 1.18.1
 history:
+  1.18.1:
+    date: '2025-01-03'
+    title: Security
+    description: 'Security improvment.'
   1.18.0:
     date: '2024-08-29'
     title: Load
