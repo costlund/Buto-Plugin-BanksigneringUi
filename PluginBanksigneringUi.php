@@ -175,6 +175,13 @@ class PluginBanksigneringUi{
        */
       $api->collectstatus();
       /**
+       * link
+       * Replace https://app.bankid.com/ with bankid:/// if Android/Webview (Facebook).
+       */
+      if(wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/webview') && wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/os_name')=='Android'){
+        wfUser::setSession('plugin/banksignering/api/response/auth/link', str_replace('https://app.bankid.com/', 'bankid:///', wfUser::getSession()->get('plugin/banksignering/api/response/auth/link')));
+      }
+      /**
        * 
        */
       $element = new PluginWfYml(__DIR__.'/element/page_auth_check.yml');
