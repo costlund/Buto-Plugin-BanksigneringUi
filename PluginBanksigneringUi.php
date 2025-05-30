@@ -175,12 +175,9 @@ class PluginBanksigneringUi{
        */
       $api->collectstatus();
       /**
-       * link
-       * Replace https://app.bankid.com/ with bankid:/// if Android/Webview (Facebook).
+       * set link
        */
-      if(wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/webview') && wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/os_name')=='Android'){
-        wfUser::setSession('plugin/banksignering/api/response/auth/link', str_replace('https://app.bankid.com/', 'bankid:///', wfUser::getSession()->get('plugin/banksignering/api/response/auth/link')));
-      }
+      $this->set_link();
       /**
        * 
        */
@@ -229,6 +226,15 @@ class PluginBanksigneringUi{
       }
     }
   }
+  /**
+   * Replace https://app.bankid.com/ with bankid:/// if Android/Facebook/Webview.
+   */
+  private function set_link($response = 'auth'){
+    if(wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/webview') && wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/os_name')=='Android'){
+      wfUser::setSession("plugin/banksignering/api/response/$response/link", str_replace('https://app.bankid.com/', 'bankid:///', (string)wfUser::getSession()->get("plugin/banksignering/api/response/$response/link")));
+    }
+    return null;
+  }
   public function page_sign_check(){
     if(!wfUser::getSession()->get('plugin/banksignering/ui/sign_button/data')){
       throw new Exception(__CLASS__.' says: Sign data is not set!');
@@ -269,6 +275,10 @@ class PluginBanksigneringUi{
        * 
        */
       $api->collectstatus('sign');
+      /**
+       * set link
+       */
+      $this->set_link('sign');
       /**
        * 
        */
