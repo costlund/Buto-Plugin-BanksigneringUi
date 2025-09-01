@@ -47,6 +47,11 @@
                     target: _blank
                     onclick: "$.get('/banksignering/log_method', function(data, status){})"
                   innerHTML: Open BankID application
+            -
+              type: div
+              settings:
+                enabled: false
+              innerHTML: response:auth/link
     -
       type: div
       settings:

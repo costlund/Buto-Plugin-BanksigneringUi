@@ -231,6 +231,9 @@ class PluginBanksigneringUi{
    */
   private function set_link($response = 'auth'){
     if(wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/webview') && wfUser::getSession()->get('plugin/server_variable/http_user_agent/data/os_name')=='Android'){
+      /**
+       * Fungerar i Android, Webview endast om man implementerar Intent (250901).
+       */
       wfUser::setSession("plugin/banksignering/api/response/$response/link", str_replace('https://app.bankid.com/', 'bankid:///', (string)wfUser::getSession()->get("plugin/banksignering/api/response/$response/link")));
     }
     return null;

@@ -1,5 +1,9 @@
-version: 1.18.2
+version: 1.18.3
 history:
+  1.18.3:
+    date: '2025-09-01'
+    title: Link to open BankID app
+    description: 'Add code description.'
   1.18.2:
     date: '2025-05-28'
     title: Link to open BankID app
