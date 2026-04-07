@@ -13,4 +13,6 @@
       innerHTML: Sign in ongoing...
 -
   type: script
-  innerHTML: $('#modal_banksignering_account').modal('hide'); location.reload();
+  innerHTML: |
+    $('#modal_banksignering_account').modal('hide');
+    location.href = '/';

@@ -9,6 +9,8 @@
 
 ## Sign in flow
 
+
+
 <ul>
 <li>User click on Sign in button to open modal with qr code.</li>
 <li>On success modal Account appear with all accounts where pid has a match (if no account exist with current PID it will be created).</li>
@@ -19,12 +21,16 @@
 
 ## Log
 
+
+
 <p>Log files are created per day basis.</p>
 <pre><code>/../buto_data/theme/[theme]/plugin/banksignering/ui/YYYY-MM-DD.yml</code></pre>
 
 <a name="key_2"></a>
 
 ## PIDs
+
+
 
 <p>Test pids.</p>
 <ul>
@@ -37,6 +43,8 @@
 <a name="key_3"></a>
 
 ## Settings
+
+
 
 <pre><code>plugin_modules:
   banksignering:
@@ -74,9 +82,13 @@ mysql: 'yml:/../buto_data/_mysql.yml'</code></pre>
 
 
 
+
+
 <a name="key_4_0"></a>
 
 ### Schema
+
+
 
 <p>Add tables to database.</p>
 <pre><code>/plugin/banksignering/ui/sql/schema.yml</code></pre>
@@ -84,6 +96,8 @@ mysql: 'yml:/../buto_data/_mysql.yml'</code></pre>
 <a name="key_4_1"></a>
 
 ### Button auth
+
+
 
 <p>Using Javascript or widget_auth_button.</p>
 <pre><code>type: a
@@ -95,6 +109,8 @@ innerHTML: 'BankID sign in'</code></pre>
 
 ### Button account
 
+
+
 <p>Anywhere on a page. This modal will show up automatic on sign in success but could be used later to shift account.</p>
 <pre><code>type: a
 attribute:
@@ -104,6 +120,8 @@ innerHTML: 'BankID accounts'</code></pre>
 <a name="key_4_3"></a>
 
 ### Button Auth as Webadmin
+
+
 
 <p>Anywhere on a page. A modal where user with role webadmin can provide any pid for authorisation.</p>
 <pre><code>type: a
@@ -117,9 +135,13 @@ innerHTML: 'BankID accounts'</code></pre>
 
 
 
+
+
 <a name="key_5_0"></a>
 
 ### page_account
+
+
 
 
 
@@ -129,9 +151,13 @@ innerHTML: 'BankID accounts'</code></pre>
 
 
 
+
+
 <a name="key_5_2"></a>
 
 ### page_auth
+
+
 
 
 
@@ -141,9 +167,13 @@ innerHTML: 'BankID accounts'</code></pre>
 
 
 
+
+
 <a name="key_5_4"></a>
 
 ### page_method
+
+
 
 
 
@@ -153,9 +183,13 @@ innerHTML: 'BankID accounts'</code></pre>
 
 
 
+
+
 <a name="key_5_6"></a>
 
 ### page_sign_check
+
+
 
 
 
@@ -165,15 +199,21 @@ innerHTML: 'BankID accounts'</code></pre>
 
 
 
+
+
 <a name="key_6"></a>
 
 ## Widgets
 
 
 
+
+
 <a name="key_6_0"></a>
 
 ### widget_auth_button
+
+
 
 <pre><code>type: widget
 data:
@@ -184,6 +224,8 @@ data:
 
 ### widget_include
 
+
+
 <p>Include in page head section.</p>
 <pre><code>type: widget
 data:
@@ -193,6 +235,8 @@ data:
 <a name="key_6_2"></a>
 
 ### widget_sign_button
+
+
 
 <p>When this button is render data is set in session.</p>
 <pre><code>type: widget
@@ -239,9 +283,13 @@ data:
 
 
 
+
+
 <a name="key_8"></a>
 
 ## Construct
+
+
 
 
 
@@ -251,9 +299,13 @@ data:
 
 
 
+
+
 <a name="key_9"></a>
 
 ## Methods
+
+
 
 
 
@@ -263,9 +315,13 @@ data:
 
 
 
+
+
 <a name="key_9_1"></a>
 
 ### render_method
+
+
 
 
 
@@ -275,9 +331,13 @@ data:
 
 
 
+
+
 <a name="key_9_3"></a>
 
 ### db_account_get_available_username
+
+
 
 
 
@@ -287,9 +347,13 @@ data:
 
 
 
+
+
 <a name="key_9_5"></a>
 
 ### db_banksignering_ui_auth_insert
+
+
 
 
 
@@ -299,9 +363,13 @@ data:
 
 
 
+
+
 <a name="key_9_7"></a>
 
 ### db_account_set_pid
+
+
 
 
 
