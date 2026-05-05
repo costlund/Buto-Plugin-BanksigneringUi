@@ -1,5 +1,9 @@
-version: 1.18.4
+version: 1.18.5
 history:
+  1.18.5:
+    date: '2026-05-05'
+    title: Auth
+    description: 'Move back to version 1.18.4.'
   1.18.4:
     date: '2026-04-07'
     title: Auth

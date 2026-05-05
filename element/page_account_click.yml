@@ -15,4 +15,4 @@
   type: script
   innerHTML: |
     $('#modal_banksignering_account').modal('hide');
-    location.href = '/';
+    location.reload();
